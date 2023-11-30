@@ -10,7 +10,9 @@
     
     $conn = ConnectionFactory::getConnectionFactory();
 
-    var_dump($conn);
+   
+
+    
     echo"Meu main.php";
 
 

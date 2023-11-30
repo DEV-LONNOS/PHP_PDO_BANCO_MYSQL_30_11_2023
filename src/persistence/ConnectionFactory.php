@@ -8,8 +8,8 @@ use App\SystemServices\MonologFactory;
 
 class ConnectionFactory {
 
-    private static $host = "127.0.0.1";
-    private static $dbname = "exercbd03";
+    private static $host = "localhost";
+    private static $dbname = "PHP_PDO";
     private static $user = "root";
     private static $password = "";
 
@@ -18,17 +18,25 @@ class ConnectionFactory {
 public static function getConnectionFactory() {
 
     try{
-        $pdo = new PDO("mysql:host=" . self::$host . "dbname=" . self::$dbname, self::$user, self::$password);
+        $pdo = new PDO('mysql:host=localhost;dbname=exercbd04', 'root', '');
 
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        MonologFactory::getInstance()->info("Conexao com banco sucedida!!!");
+        $result = $pdo->query("SELECT * FROM funcionarios")->fetchAll();
+
+        var_dump($result);
+
+
+        MonologFactory::getInstance()->info("Conexão com banco sucedida!!!");
         return new ConnectionFactory();
+
+        
+        
     }
     catch(PDOException $e){
 
-        MonologFactory::getInstance()->info("Erro na conexao" . $e->getMessage());
-        MonologFactory::getInstance()->info("Erro nao relacionado ao banco" . $e->getMessage());
+        MonologFactory::getInstance()->info("Erro na conexão" . $e->getMessage());
+        MonologFactory::getInstance()->info("Erro não relacionado ao banco" . $e->getMessage());
 
 
     }
